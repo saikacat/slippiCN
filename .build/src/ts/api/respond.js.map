@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/ts/api/respond.ts"],
+  "sourcesContent": ["export function respond(status: number, body: any): Response | PromiseLike<Response> {\n    return new Response(\n        JSON.stringify(body),\n        {\n            headers: { \"Content-Type\": \"application/json\" },\n            status\n        }\n    );\n}"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAO,SAAS,QAAQ,QAAgB,MAA6C;AACjF,SAAO,IAAI;AAAA,IACP,KAAK,UAAU,IAAI;AAAA,IACnB;AAAA,MACI,SAAS,EAAE,gBAAgB,mBAAmB;AAAA,MAC9C;AAAA,IACJ;AAAA,EACJ;AACJ;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/routes/register/+page.server.ts"],
+  "sourcesContent": ["import { error } from \"@sveltejs/kit\";\n\nimport type { PageServerLoad } from \"./$types\";\n\nimport type { DatabaseBan } from \"$ts/database/schemas\";\n\nimport dbPromise from \"$ts/database/database\";\n\nexport const load: PageServerLoad = async (event) => {\n    const db = await dbPromise;\n\n    const bansCollection = db.collection<DatabaseBan>(\"bans\");\n\n    if (await bansCollection.findOne({ ip: event.getClientAddress() })) {\n        throw error(403, \"no\");\n    }\n};"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,iBAAsB;AAMtB,sBAAsB;AAEf,MAAM,OAAuB,OAAO,UAAU;AACjD,QAAM,KAAK,MAAM,gBAAAA;AAEjB,QAAM,iBAAiB,GAAG,WAAwB,MAAM;AAExD,MAAI,MAAM,eAAe,QAAQ,EAAE,IAAI,MAAM,iBAAiB,EAAE,CAAC,GAAG;AAChE,cAAM,kBAAM,KAAK,IAAI;AAAA,EACzB;AACJ;",
+  "names": ["dbPromise"]
+}

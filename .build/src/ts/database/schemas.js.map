@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/ts/database/schemas.ts"],
+  "sourcesContent": ["import type { Character } from \"$ts/types/character\";\n\nexport interface DatabasePlayer {\n    id: string;\n    name: string;\n\n    data: DatabasePlayerData;\n\n    addedIp: string;\n    addedDate: Date;\n}\n\nexport interface DatabasePlayerData {\n    slippi_code: string;\n    slippi_name: string;\n\n    characters: DatabasePlayerDataCharacters[];\n\n    rating: number;\n\n    sets: number;\n\n    wins: number | null;\n    losses: number | null;\n}\n\nexport interface DatabasePlayerDataCharacters {\n    character: Character;\n    proportion: number;\n};\n\nexport interface DatabaseStats {\n    lastUpdate: Date;\n}\n\nexport interface DatabaseBan {\n    ip: string;\n}"],
+  "mappings": ";;;;;;;;;;;;;;AAAA;AAAA;AA6BC;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../.svelte-kit/types/src/routes/register/proxy+page.server.ts"],
+  "sourcesContent": ["// @ts-nocheck\nimport { error } from \"@sveltejs/kit\";\n\nimport type { PageServerLoad } from \"./$types\";\n\nimport type { DatabaseBan } from \"$ts/database/schemas\";\n\nimport dbPromise from \"$ts/database/database\";\n\nexport const load = async (event: Parameters<PageServerLoad>[0]) => {\n    const db = await dbPromise;\n\n    const bansCollection = db.collection<DatabaseBan>(\"bans\");\n\n    if (await bansCollection.findOne({ ip: event.getClientAddress() })) {\n        throw error(403, \"no\");\n    }\n};"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AACA,iBAAsB;AAMtB,sBAAsB;AAEf,MAAM,OAAO,OAAO,UAAyC;AAChE,QAAM,KAAK,MAAM,gBAAAA;AAEjB,QAAM,iBAAiB,GAAG,WAAwB,MAAM;AAExD,MAAI,MAAM,eAAe,QAAQ,EAAE,IAAI,MAAM,iBAAiB,EAAE,CAAC,GAAG;AAChE,cAAM,kBAAM,KAAK,IAAI;AAAA,EACzB;AACJ;",
+  "names": ["dbPromise"]
+}

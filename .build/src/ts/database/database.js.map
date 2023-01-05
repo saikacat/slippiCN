@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/ts/database/database.ts"],
+  "sourcesContent": ["import { MONGODB_URI } from \"$env/static/private\";\n\nimport { MongoClient } from \"mongodb\";\n\nlet client = new MongoClient(MONGODB_URI, {});\nlet dbPromise = client.connect().then(x => x.db(\"web\"));\n\nexport default dbPromise;\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,qBAA4B;AAE5B,qBAA4B;AAE5B,IAAI,SAAS,IAAI,2BAAY,4BAAa,CAAC,CAAC;AAC5C,IAAI,YAAY,OAAO,QAAQ,EAAE,KAAK,OAAK,EAAE,GAAG,KAAK,CAAC;AAEtD,IAAO,mBAAQ;",
+  "names": []
+}

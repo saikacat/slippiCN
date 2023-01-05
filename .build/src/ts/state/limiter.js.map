@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/ts/state/limiter.ts"],
+  "sourcesContent": ["import { RateLimiter } from \"limiter\";\n\nexport const slippiLimiter = new RateLimiter({ tokensPerInterval: 2, interval: \"second\" });"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,qBAA4B;AAErB,MAAM,gBAAgB,IAAI,2BAAY,EAAE,mBAAmB,GAAG,UAAU,SAAS,CAAC;",
+  "names": []
+}

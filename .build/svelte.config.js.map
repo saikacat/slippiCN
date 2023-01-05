@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../svelte.config.js"],
+  "sourcesContent": ["import vercel from \"@sveltejs/adapter-vercel\";\nimport preprocess from \"svelte-preprocess\";\n\n/** @type {import(\"@sveltejs/kit\").Config} */\nconst config = {\n\tpreprocess: preprocess(),\n\n\tkit: {\n\t\tadapter: vercel(),\n\n\t\tfiles: {\n\t\t\troutes: \"src/routes\"\n\t\t}\n\t}\n};\n\nexport default config;\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,4BAAmB;AACnB,+BAAuB;AAGvB,MAAM,SAAS;AAAA,EACd,gBAAY,yBAAAA,SAAW;AAAA,EAEvB,KAAK;AAAA,IACJ,aAAS,sBAAAC,SAAO;AAAA,IAEhB,OAAO;AAAA,MACN,QAAQ;AAAA,IACT;AAAA,EACD;AACD;AAEA,IAAO,wBAAQ;",
+  "names": ["preprocess", "vercel"]
+}

@@ -49,11 +49,11 @@
 </script>
 
 <svelte:head>
-    <title>Washington Slippi Leaderboard</title>
+    <title>Vancouver Slippi Leaderboard</title>
 </svelte:head>
 
 <!-- svelte-ignore a11y-missing-attribute -->
-<h1><img src="/flags/wa.svg" class="flag"/>Washington Slippi Leaderboard</h1>
+<h1><img src="/flags/va.svg" class="flag"/>Vancouver Slippi Leaderboard</h1>
 <p class="ago">Last updated {ago}</p>
 
 <table>

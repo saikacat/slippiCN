@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../.svelte-kit/generated/client-manifest.js"],
+  "sourcesContent": ["export { matchers } from './client-matchers.js';\n\nexport const nodes = [() => import('./nodes/0'),\n\t() => import('./nodes/1'),\n\t() => import('./nodes/2'),\n\t() => import('./nodes/3')];\n\nexport const server_loads = [];\n\nexport const dictionary = {\n\t\"/\": [~2],\n\t\"/register\": [~3]\n};\n\nexport const hooks = {\n\thandleError: (({ error }) => { console.error(error) }),\n};"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,6BAAyB;AAElB,MAAM,QAAQ;AAAA,EAAC,MAAM,OAAO;AAAA,EAClC,MAAM,OAAO;AAAA,EACb,MAAM,OAAO;AAAA,EACb,MAAM,OAAO;AAAY;AAEnB,MAAM,eAAe,CAAC;AAEtB,MAAM,aAAa;AAAA,EACzB,KAAK,CAAC,CAAC,CAAC;AAAA,EACR,aAAa,CAAC,CAAC,CAAC;AACjB;AAEO,MAAM,QAAQ;AAAA,EACpB,aAAc,CAAC,EAAE,MAAM,MAAM;AAAE,YAAQ,MAAM,KAAK;AAAA,EAAE;AACrD;",
+  "names": []
+}

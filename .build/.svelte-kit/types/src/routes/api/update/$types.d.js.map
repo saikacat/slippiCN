@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../../.svelte-kit/types/src/routes/api/update/$types.d.ts"],
+  "sourcesContent": ["import type * as Kit from '@sveltejs/kit';\n\ntype Expand<T> = T extends infer O ? { [K in keyof O]: O[K] } : never;\ntype RouteParams = {  }\ntype RouteId = '/api/update';\n\nexport type RequestHandler = Kit.RequestHandler<RouteParams, RouteId>;\nexport type RequestEvent = Kit.RequestEvent<RouteParams, RouteId>;"],
+  "mappings": ";;;;;;;;;;;;;AAAA;AAAA;",
+  "names": []
+}

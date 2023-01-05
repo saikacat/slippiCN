@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../vite.config.ts"],
+  "sourcesContent": ["import path from \"path\";\n\nimport { sveltekit } from \"@sveltejs/kit/vite\";\nimport type { UserConfig } from \"vite\";\n\nconst config: UserConfig = {\n\tplugins: [sveltekit()],\n\tresolve: {\n\t\talias: {\n\t\t\t$ts: path.resolve(\"./src/ts\"),\n\t\t\t$css: path.resolve(\"./src/css\"),\n\t\t\t$components: path.resolve(\"./src/components\"),\n\t\t\t$gql: path.resolve(\"./src/gql\")\n\t\t}\n\t}\n};\n\nexport default config;\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,kBAAiB;AAEjB,kBAA0B;AAG1B,MAAM,SAAqB;AAAA,EAC1B,SAAS,KAAC,uBAAU,CAAC;AAAA,EACrB,SAAS;AAAA,IACR,OAAO;AAAA,MACN,KAAK,YAAAA,QAAK,QAAQ,UAAU;AAAA,MAC5B,MAAM,YAAAA,QAAK,QAAQ,WAAW;AAAA,MAC9B,aAAa,YAAAA,QAAK,QAAQ,kBAAkB;AAAA,MAC5C,MAAM,YAAAA,QAAK,QAAQ,WAAW;AAAA,IAC/B;AAAA,EACD;AACD;AAEA,IAAO,sBAAQ;",
+  "names": ["path"]
+}

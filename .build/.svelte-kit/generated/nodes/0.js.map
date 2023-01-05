@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../.svelte-kit/generated/nodes/0.js"],
+  "sourcesContent": ["export { default as component } from \"../../../node_modules/@sveltejs/kit/src/runtime/components/layout.svelte\";"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,oBAAqC;",
+  "names": []
+}

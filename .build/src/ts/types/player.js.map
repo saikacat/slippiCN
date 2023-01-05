@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/ts/types/player.ts"],
+  "sourcesContent": ["import type { Character } from \"./character\";\nimport type { Tier } from \"./tier\";\n\ntype PlayedCharacter = {\n    character: Character;\n    proportion: number;\n};\n\nexport interface Player {\n    name: string;\n\n    slippiName: string;\n    slippiTag: string;\n    slippiDiscriminator: string;\n\n    characters: PlayedCharacter[];\n\n    rating: number | null;\n    tier: Tier;\n\n    sets: number;\n\n    wins: number | null;\n    losses: number | null;\n}"],
+  "mappings": ";;;;;;;;;;;;;;AAAA;AAAA;",
+  "names": []
+}
