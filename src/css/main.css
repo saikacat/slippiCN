@@ -12,12 +12,12 @@
 }
 
 :root {
-    --color-background: #0B120E;
-    --color-background-light: #111915;
-    --color-background-lighter: #19231E;
-    --color-background-lightest: #1F2A24;
-    --color-foreground-darkest: #88AC98;
-    --color-foreground-darker: #A7C4B4;
+    --color-background: #003559;
+    --color-background-light: #0353A4;
+    --color-background-lighter: #061A40;
+    --color-background-lightest: #B9D6F2;
+    --color-foreground-darkest: #81B29A;
+    --color-foreground-darker: #F2CC8F;
     --color-foreground-dark: #C7DACF;
     --color-foreground: #EFF5F3;
 

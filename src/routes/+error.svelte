@@ -4,7 +4,7 @@
     const map: Record<number, string> = {
         403: "no",
         404: "Take me back to the leaderboard!",
-        500: "Uh oh!!! Please report this!!!!!!"
+        500: "Please report this to cat#8530"
     };
 </script>
 

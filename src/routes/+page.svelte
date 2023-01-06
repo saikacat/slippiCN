@@ -21,6 +21,7 @@
         { code: "co", name: "Colorado", url: "https://grantismo.github.io/CoSlippiLeaderboard/#/" },
         { code: "sd", name: "Siouxland", url: "https://melangestillraces.github.io/SiouxlandSlippiLeaderboard/#/" },
         { code: "qc", name: "Quebec", url: "https://tokage2000.github.io/QCSlippiLeaderboard/#/" },
+      { code: "wa", name: "Washington", url: "https://slippi.poyo.dev/" }
     ];
 
     const players = data.players;
@@ -107,7 +108,7 @@
         {/each}
     </ul>
 </div>
-
+<div style ="center; text-align : center;"> Forked by Saika, created by Poyo </div>
 <style>
     .flag {
         display: inline-block;

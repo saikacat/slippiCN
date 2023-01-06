@@ -41,7 +41,7 @@
 <div class="container">
     <div class="content">
         <h1>Register player</h1>
-        <p>Please only register Washington players. Please?</p>
+        <p>Please only register B.C players. Please?</p>
         <p>Contact {PUBLIC_CONTACT} to have your name changed or to be removed.</p>
         <table>
             <tr>
