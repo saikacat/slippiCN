@@ -15,6 +15,8 @@
 
     import RatingHistory from '$components/RatingHistory.svelte';
 
+    import { inject } from '@vercel/analytics'
+    inject();
     export let data: PageData;
 
     const otherLeaderboards = [
@@ -64,15 +66,8 @@
                 row.style.animation = "";
             }
         }
-
-        // Fetch rating history data when the component mounts
-        fetchRatingHistory();
     });
 
-    async function fetchRatingHistory() {
-        // Implement API call to fetch rating history data
-        // Update the players array with the fetched data
-    }
 </script>
 
 <svelte:head>
