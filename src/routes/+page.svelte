@@ -18,12 +18,22 @@
     export let data: PageData;
 
     const otherLeaderboards = [
-        { code: "az", name: "Arizona", url: "https://joemama0s.github.io/AZSlippiLeaderboard/#/" },
-        { code: "ca", name: "Norcal", url: "https://costasford.github.io/NorcalSlippiLeaderboard/#/" },
-        { code: "co", name: "Colorado", url: "https://grantismo.github.io/CoSlippiLeaderboard/#/" },
-        { code: "sd", name: "Siouxland", url: "https://melangestillraces.github.io/SiouxlandSlippiLeaderboard/#/" },
-        { code: "qc", name: "Quebec", url: "https://tokage2000.github.io/QCSlippiLeaderboard/#/" },
-      { code: "wa", name: "Washington", url: "https://slippi.poyo.dev/" }
+        { code: "us_az", name: "Arizona", url: "https://joemama0s.github.io/AZSlippiLeaderboard/#/" },
+        { code: "us_ar", name: "Arkansas", url: "https://smaneil.github.io/ArSlippiLeaderboard/#/" },
+        { code: "us_wa", name: "Washington", url: "https://slippi.poyo.dev/" },
+        { code: "us_co", name: "Colorado", url: "https://grantismo.github.io/CoSlippiLeaderboard/#/" },
+        { code: "us_in", name: "Indiana", url: "https://freemanb2.github.io/InSlippiLeaderboard/#/" },
+        { code: "us_ia", name: "Iowa", url: "https://teolandon.github.io/IaSlippiLeaderboard/#/" },
+        { code: "us_mo", name: "Missouri", url: "https://timtempor.github.io/MOSlippiLeaderboard/#/" },
+        { code: "us_ca", name: "Norcal", url: "https://costasford.github.io/NorcalSlippiLeaderboard/#/" },
+        { code: "us_ne", name: "New England", url: "https://benjaminsg.github.io/NESlippiLeaderboard/#/" },
+        { code: "us_nm", name: "New Mexico", url: "https://izzythecubemaster.github.io/NMSlippiLeaderboard/#/" },
+        { code: "ca_qc", name: "Quebec", url: "https://tokage2000.github.io/QCSlippiLeaderboard/#/" },
+        { code: "uk_ab", name: "Scotland", url: "https://melee-leaderboards.github.io/Scotland/" },
+        { code: null, name: "Siouxland", url: "https://melangestillraces.github.io/SiouxlandSlippiLeaderboard/#/" },
+        { code: null, name: "South America", url: "https://caioicy.github.io/slippi-leaderboard-sa/#/" },
+        { code: "us_tx", name: "Texas", url: "https://timothysdavis00.github.io/TXSlippiLeaderboard/#/" },
+        { code: "uk", name: "United Kingdom", url: "https://spirrit.github.io/UKSlippiLeaderboard/#/" },
     ];
 
     const players = data.players;

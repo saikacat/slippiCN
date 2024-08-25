@@ -33,6 +33,7 @@
 		"@upstash/qstash": "^0.3.2",
 		"chart.js": "^4.4.4",
 		"dotenv": "^16.4.5",
+		"gh": "^2.8.9",
 		"limiter": "2.0.1",
 		"luxon": "^3.1.1",
 		"mongodb": "^4.12.1",
