@@ -56,10 +56,12 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
             await playersCollection.findOneAndUpdate({ id: currentIds[i] }, { $set: { data: players[i] } });
     
             // Check for rating changes before updating rating history
+            console.log(`Rating Logic Running`);
+
             if (players[i].rating) {
                 const existingPlayer = await ratingHistoryCollection.findOne({ playerId: currentIds[i] });
                 const lastRating = existingPlayer?.history[existingPlayer.history.length - 1]?.rating;
-
+            console.log(`Rating Find for ${existingPlayer} and their rating was ${lastRating}`);
                 if (!lastRating || players[i].rating !== lastRating) {
                     await ratingHistoryCollection.updateOne(
                         { playerId: currentIds[i] },
