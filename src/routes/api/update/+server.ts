@@ -81,7 +81,14 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
                 bulkOps.push({
                     updateOne: {
                         filter: { id: id },
-                        update: { $set: { data: updatedPlayersData[index] } }
+                        update: { 
+                            $set: { 
+                                data: {
+                                    ...updatedPlayersData[index],
+                                    ratingHistory: player?.data.ratingHistory || []
+                                }
+                            } 
+                        }
                     }
                 });
             }
@@ -96,7 +103,7 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
     }
     const bulkWriteTime = Date.now() - bulkWriteStartTime;
     console.log(`Bulk write time: ${bulkWriteTime}ms`);
-    console.log('Bulk write operations:', JSON.stringify(bulkOps, null, 2));
+    //console.log('Bulk write operations:', JSON.stringify(bulkOps, null, 2));
 
     const statsUpdateStartTime = Date.now();
     const statsCollection = db.collection<DatabaseStats>("stats");

@@ -133,6 +133,10 @@ function slippiUserToDatabasePlayerData(slippiUser: any): DatabasePlayerData {
         sets: slippiUser.rankedNetplayProfile.ratingUpdateCount,
 
         wins,
-        losses
+        losses,
+        ratingHistory: slippiUser.rankedNetplayProfile.ratingHistory?.map((entry: any) => ({
+            date: new Date(entry.dateTime).toISOString(),
+            rating: entry.ratingOrdinal
+        })) || []
     };
 }
