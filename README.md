@@ -1,6 +1,6 @@
-# slippiwa
+# slippiCN
 
-website which collects and displays ranks of washington melee players. built for vercel deployment with mongodb.
+website which collects and displays ranks of vancouver canada melee players. built for vercel deployment with mongodb.
 
 managing the database currently has no frontend and will require mongodb compass or a similar tool.
 
@@ -22,3 +22,7 @@ managing the database currently has no frontend and will require mongodb compass
 ## mongo
 
 create a cluster named "web" before running!
+
+## scripts
+
+npm run init-ratings to initialize the ratings collection
