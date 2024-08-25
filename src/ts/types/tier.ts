@@ -28,7 +28,6 @@ type RatingBracket = {
 
 // this will probably go out of date pretty quickly
 const ratingMap: RatingBracket[] = [
-    { rating: 2191.75, tier: "Grandmaster" },
     { rating: 2350, tier: "Master 3" },
     { rating: 2275, tier: "Master 2" },
     { rating: 2191.75, tier: "Master 1" },
@@ -77,12 +76,24 @@ export function getSlugFromTier(tier: Tier): string {
     return slugMap[tier];
 }
 
-export function getTierFromRating(rating: number) {
+export function getTierFromRating(rating: number): Tier {
+    // Check for Grandmaster first
+    if (rating >= 2350) {
+        return "Grandmaster";
+    }
+
     for (const bracket of ratingMap) {
         if (rating >= bracket.rating) {
             return bracket.tier;
         }
     }
 
-    return "Unranked";
+    // If the rating is less than the lowest bracket
+    if (rating < 0) {
+        return "Unranked";
+    }
+
+    // If we've gone through all brackets and haven't returned, 
+    // the player is in the lowest tier
+    return "Bronze 1";
 }

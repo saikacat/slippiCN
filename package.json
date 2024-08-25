@@ -8,7 +8,8 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"init-ratings": "tsx scripts/initRatings.ts"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^1.0.0",
@@ -21,15 +22,20 @@
 		"svelte": "^3.54.0",
 		"svelte-check": "^2.9.2",
 		"svelte-preprocess": "^5.0.0",
+		"ts-node": "^10.9.2",
 		"tslib": "^2.4.1",
-		"typescript": "^4.9.3",
+		"tsx": "^4.17.0",
+		"typescript": "^4.9.5",
 		"vite": "^4.0.0"
 	},
 	"type": "module",
 	"dependencies": {
 		"@upstash/qstash": "^0.3.2",
+		"chart.js": "^4.4.4",
+		"dotenv": "^16.4.5",
 		"limiter": "2.0.1",
 		"luxon": "^3.1.1",
-		"mongodb": "^4.12.1"
+		"mongodb": "^4.12.1",
+		"tsc": "^2.0.4"
 	}
 }

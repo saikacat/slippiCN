@@ -1,8 +1,15 @@
-import { MONGODB_URI } from "$env/static/private";
-
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
 
-let client = new MongoClient(MONGODB_URI, {});
-let dbPromise = client.connect().then(x => x.db("web"));
+dotenv.config();
 
-export default dbPromise;
+const uri = process.env.MONGODB_URI;
+
+if (!uri) {
+    throw new Error("Please define the MONGODB_URI environment variable");
+}
+
+const client = new MongoClient(uri);
+const clientPromise = client.connect();
+
+export default clientPromise.then((client) => client.db("web"));

@@ -36,3 +36,12 @@ export interface DatabaseStats {
 export interface DatabaseBan {
     ip: string;
 }
+
+export interface DatabaseRatingHistory {
+    playerId: string;
+    playerName: string;
+    history: {
+        date: Date;
+        rating: number;
+    }[];
+}

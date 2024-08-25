@@ -1,6 +1,6 @@
 import type { RequestEvent, RequestHandler } from "./$types";
 
-import type { DatabasePlayer, DatabaseStats } from "$ts/database/schemas";
+import type { DatabasePlayer, DatabaseRatingHistory, DatabaseStats } from "$ts/database/schemas";
 
 import { Receiver } from "@upstash/qstash";
 import { getPlayersById } from "$ts/api/slippi";
@@ -35,15 +35,17 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
     const db = await dbPromise;
 
     const playersCollection = db.collection<DatabasePlayer>("players");
+    const ratingHistoryCollection = db.collection<DatabaseRatingHistory>("rating_history");
 
     const players = await playersCollection.find().toArray();
     const ids = players.map(x => x.id);
 
     console.log(`Updating ${ids.length} players...`);
 
+    const currentIds = [];
+
     while (ids.length) {
-        const currentIds = [];
-        
+
         for (let i = 0; i < batch_size && ids.length; i++) {
             currentIds.push(ids.shift()!);
         }
@@ -51,7 +53,31 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
         const players = await getPlayersById(currentIds);
 
         for (let i = 0; i < currentIds.length; i++) {
-            playersCollection.findOneAndUpdate({ id: currentIds[i] }, { $set: { data: players[i] } });
+            await playersCollection.findOneAndUpdate({ id: currentIds[i] }, { $set: { data: players[i] } });
+    
+            // Check for rating changes before updating rating history
+            if (players[i].rating) {
+                const existingPlayer = await ratingHistoryCollection.findOne({ playerId: currentIds[i] });
+                const lastRating = existingPlayer?.history[existingPlayer.history.length - 1]?.rating;
+
+                if (!lastRating || players[i].rating !== lastRating) {
+                    await ratingHistoryCollection.updateOne(
+                        { playerId: currentIds[i] },
+                        {
+                            $push: {
+                                history: {
+                                    $each: [{
+                                        date: new Date(),
+                                        rating: players[i].rating
+                                    }],
+                                    $slice: -100 // Keep only the last 100 entries
+                                }
+                            }
+                        },
+                        { upsert: true }
+                    );
+                }
+            }
         }
     }
 

@@ -13,6 +13,8 @@
 
     import type { PageData } from "./$types";
 
+    import RatingHistory from '$components/RatingHistory.svelte';
+
     export let data: PageData;
 
     const otherLeaderboards = [
@@ -33,6 +35,12 @@
         return `${player.slippiTag.toLowerCase()}-${player.slippiDiscriminator}`;
     }
 
+    let showRatingHistory: { [key: string]: boolean } = {};
+
+    function toggleRatingHistory(playerId: string) {
+        showRatingHistory[playerId] = !showRatingHistory[playerId];
+    }
+
     onMount(() => {
         setInterval(() => ago = lastUpdate.toRelative(), 500);
 
@@ -46,7 +54,15 @@
                 row.style.animation = "";
             }
         }
+
+        // Fetch rating history data when the component mounts
+        fetchRatingHistory();
     });
+
+    async function fetchRatingHistory() {
+        // Implement API call to fetch rating history data
+        // Update the players array with the fetched data
+    }
 </script>
 
 <svelte:head>
@@ -73,7 +89,7 @@
                 <td class="rank">{player.rating ? i + 1 : "—"}</td>
                 <td class="player">
                     <!-- svelte-ignore a11y-missing-content -->
-                    <a class="anchor" name={slug(player)} />
+                    <a class="anchor" id={slug(player)} />
                     <p class="name"><a href="https://slippi.gg/user/{slug(player)}">{player.name}</a></p>
                     <p class="slippi">
                         <span class="slippi-tag">{player.slippiTag}#{player.slippiDiscriminator}</span>
@@ -92,9 +108,19 @@
                 <td class="rating">
                     {player.rating?.toFixed(1) ?? "⸻"}
                     <img src="/ranks/{getSlugFromTier(player.tier)}.svg" class="tier" alt="{player.tier}" title="{player.tier}"/>
+                    <button on:click={() => toggleRatingHistory(player.name)} class="history-link">
+                        {showRatingHistory[player.name] ? 'Hide History' : 'Show History'}
+                    </button>
                 </td>
                 <td class="wl"><span class:wins={player.wins !== null}>{player.wins ?? "⸺"}</span> <span class="slash">/</span> <span class:losses={player.losses !== null}>{player.losses ?? "⸺"}</span></td>
             </tr>
+            {#if showRatingHistory[player.name]}
+                <tr>
+                    <td colspan="5">
+                        <RatingHistory playerId={player.name} playerName={player.name} currentRating={player.rating} />
+                    </td>
+                </tr>
+            {/if}
         {/each}
     </tbody>
 </table>
@@ -108,7 +134,9 @@
         {/each}
     </ul>
 </div>
-<div style ="center; text-align : center;"> Forked by Saika, created by Poyo </div>
+<div style="center; text-align: center;">
+    <a href="https://github.com/saikacat" target="_blank" rel="noopener noreferrer">Saika</a>
+</div>
 <style>
     .flag {
         display: inline-block;
@@ -375,5 +403,17 @@
         .player {
             width: auto;
         }
+    }
+
+    .history-link {
+        display: block;
+        margin-top: 5px;
+        font-size: 12px;
+        color: var(--color-foreground-darker);
+        text-decoration: underline;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
     }
 </style>
