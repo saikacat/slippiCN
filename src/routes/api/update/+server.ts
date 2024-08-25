@@ -72,7 +72,7 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
         ratingHistoryOps.push(...currentIds
             .filter((id, index) => {
                 const currentPlayer = currentPlayers.find(p => p.id === id);
-                return currentPlayer?.data?.rating !== updatedPlayers[index].rating;
+                return currentPlayer?.data?.rating !== updatedPlayers[index]?.rating;
             })
             .map((id, index) => ({
                 updateOne: {
@@ -80,7 +80,7 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
                     update: {
                         $push: {
                             history: {
-                                $each: [{ date: new Date(), rating: updatedPlayers[index].rating }],
+                                $each: [{ date: new Date(), rating: updatedPlayers[index]?.rating }],
                                 $slice: -100
                             }
                         }
