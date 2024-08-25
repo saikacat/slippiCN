@@ -1,5 +1,5 @@
 import type { RequestHandler } from "@sveltejs/kit";
-import type { DatabaseRatingHistory } from "$ts/database/schemas";
+import type { DatabasePlayer } from "$ts/database/schemas";
 import dbPromise from "$ts/database/database";
 import { respond } from "$ts/api/respond";
 
@@ -9,16 +9,15 @@ export const GET: RequestHandler = async ({ url }) => {
     if (!playerName) {
         return respond(400, {
             status: "error",
-            message: "Player ID is required"
+            message: "Player name is required"
         });
     }
 
     const db = await dbPromise;
-    const ratingHistoryCollection = db.collection<DatabaseRatingHistory>("rating_history");
+    const playersCollection = db.collection<DatabasePlayer>("players");
 
-    const ratingHistory = await ratingHistoryCollection.findOne({ playerName: playerName });
-
-    if (!ratingHistory) {
+    const player = await playersCollection.findOne({ name: playerName });
+    if (!player || !player.data.ratingHistory) {
         return respond(404, {
             status: "error",
             message: "Rating history not found"
@@ -27,6 +26,6 @@ export const GET: RequestHandler = async ({ url }) => {
 
     return respond(200, {
         status: "success",
-        data: ratingHistory.history
+        data: player.data.ratingHistory
     });
 };

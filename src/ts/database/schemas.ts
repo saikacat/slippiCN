@@ -14,6 +14,7 @@ export interface DatabasePlayerData {
     slippi_code: string;
     slippi_name: string;
 
+    ratingHistory: { date: Date; rating: number }[];
     characters: DatabasePlayerDataCharacters[];
 
     rating: number;

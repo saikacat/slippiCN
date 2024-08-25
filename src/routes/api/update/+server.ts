@@ -1,32 +1,28 @@
 import type { RequestEvent, RequestHandler } from "./$types";
 
-import type { DatabasePlayer, DatabaseRatingHistory, DatabaseStats } from "$ts/database/schemas";
+import type { DatabasePlayer, DatabaseStats } from "$ts/database/schemas";
 
 import { Receiver } from "@upstash/qstash";
 import { getPlayersById } from "$ts/api/slippi";
 import { respond } from "$ts/api/respond";
-
-//import { API_SECRET, QSTASH_CURRENT_SIGNING_KEY, QSTASH_NEXT_SIGNING_KEY } from "$env/static/private";
+import { API_SECRET, QSTASH_CURRENT_SIGNING_KEY, QSTASH_NEXT_SIGNING_KEY } from "$env/static/private";
 
 import dbPromise from "$ts/database/database";
 
 const batch_size = 25;
-
-/*const qstash = new Receiver({
+const qstash = new Receiver({
     currentSigningKey: QSTASH_CURRENT_SIGNING_KEY,
     nextSigningKey: QSTASH_NEXT_SIGNING_KEY,
 });
-*/
+
 export const POST: RequestHandler = async (event: RequestEvent) => {
     const startTime = Date.now();
-    let ok = true;
-    //ok = event.request.headers.get("authorization") === `Bearer ${API_SECRET}`;
+    let ok = event.request.headers.get("authorization") === `Bearer ${API_SECRET}`;
     
-    /*ok = ok || await qstash.verify({
+    ok = ok || await qstash.verify({
         signature: event.request.headers.get("upstash-signature") ?? "",
         body: await event.request.text()
     });
-*/
     if (!ok) {
         return respond(401, {
             "status": "error",
@@ -39,20 +35,17 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
     console.log(`Database connection time: ${dbConnectTime}ms`);
 
     const playersCollection = db.collection<DatabasePlayer>("players");
-    const ratingHistoryCollection = db.collection<DatabaseRatingHistory>("rating_history");
 
     const fetchStartTime = Date.now();
-    const players = await playersCollection.find({}, { projection: { id: 1 } }).toArray();
-    const ratingHistories = await ratingHistoryCollection.find({}).toArray();
+    const players = await playersCollection.find({}).toArray();
     const fetchTime = Date.now() - fetchStartTime;
-    console.log(`Fetch players and rating histories time: ${fetchTime}ms`);
+    console.log(`Fetch players time: ${fetchTime}ms`);
 
     const ids = players.map(x => x.id);
 
     console.log(`Updating ${ids.length} players...`);
 
     const bulkOps: any[] = [];
-    const ratingHistoryOps: any[] = [];
 
     const updateStartTime = Date.now();
     while (ids.length) {
@@ -61,40 +54,38 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
         const updatedPlayersData = await getPlayersById(currentIds);
         console.timeEnd('getPlayersById');
 
-        console.log('Sample updated player data:', JSON.stringify(updatedPlayersData[0], null, 2));
+        currentIds.forEach((id, index) => {
+            const player = players.find(p => p.id === id);
+            const newRating = updatedPlayersData[index]?.rating;
+            const lastRating = player?.data.ratingHistory?.[player.data.ratingHistory.length - 1]?.rating;
 
-        bulkOps.push(...currentIds.map((id, index) => ({
-            updateOne: {
-                filter: { id },
-                update: { $set: { data: updatedPlayersData[index] } }
-            }
-        })));
-
-        ratingHistoryOps.push(...currentIds
-            .filter((id, index) => {
-                const ratingHistory = ratingHistories.find(rh => rh.playerId === id);
-                const lastRating = ratingHistory?.history[ratingHistory.history.length - 1]?.rating;
-                const newRating = updatedPlayersData[index]?.rating;
-                return lastRating !== newRating && newRating != null;
-            })
-            .map((id, index) => {
-                const newRating = updatedPlayersData[index]?.rating;
+            if (lastRating !== newRating && newRating != null) {
                 console.log(`Updating player ${id} with new rating: ${newRating}`);
-                return {
+                bulkOps.push({
                     updateOne: {
-                        filter: { playerId: id },
+                        filter: { id: id },
                         update: {
-                            $push: {
-                                history: {
-                                    $each: [{ date: new Date(), rating: newRating }],
-                                    $slice: -100
+                            $set: { 
+                                data: {
+                                    ...updatedPlayersData[index],
+                                    ratingHistory: [
+                                        ...(player?.data.ratingHistory || []),
+                                        { date: new Date(), rating: newRating }
+                                    ].slice(-100)
                                 }
                             }
-                        },
-                        upsert: true
+                        }
                     }
-                };
-            }));
+                });
+            } else {
+                bulkOps.push({
+                    updateOne: {
+                        filter: { id: id },
+                        update: { $set: { data: updatedPlayersData[index] } }
+                    }
+                });
+            }
+        });
     }
     const updateTime = Date.now() - updateStartTime;
     console.log(`Update players time: ${updateTime}ms`);
@@ -103,12 +94,9 @@ export const POST: RequestHandler = async (event: RequestEvent) => {
     if (bulkOps.length > 0) {
         await playersCollection.bulkWrite(bulkOps);
     }
-    if (ratingHistoryOps.length > 0) {
-        await ratingHistoryCollection.bulkWrite(ratingHistoryOps);
-    }
     const bulkWriteTime = Date.now() - bulkWriteStartTime;
     console.log(`Bulk write time: ${bulkWriteTime}ms`);
-    console.log('Bulk write operations:', JSON.stringify(ratingHistoryOps, null, 2));
+    console.log('Bulk write operations:', JSON.stringify(bulkOps, null, 2));
 
     const statsUpdateStartTime = Date.now();
     const statsCollection = db.collection<DatabaseStats>("stats");

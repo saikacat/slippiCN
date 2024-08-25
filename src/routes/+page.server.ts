@@ -46,7 +46,9 @@ export const load: PageServerLoad = async () => {
             sets: x.data.sets,
 
             wins: x.data.wins,
-            losses: x.data.losses
+            losses: x.data.losses,
+
+            ratingHistory: x.data.ratingHistory || [],
         }
     });
 
