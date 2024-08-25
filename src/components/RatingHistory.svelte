@@ -21,7 +21,7 @@
         try {
             isLoading = true;
             error = null;
-            const response = await fetch(`/api/ratingHistory?playerId=${playerId}`);
+            const response = await fetch(`/api/ratingHistory?playerName=${encodeURIComponent(playerId)}`);
             const data = await response.json();
 
             console.log('API response:', data);

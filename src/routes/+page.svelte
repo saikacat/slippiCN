@@ -117,7 +117,7 @@
             {#if showRatingHistory[player.name]}
                 <tr>
                     <td colspan="5">
-                        <RatingHistory playerId={player.name} playerName={player.name} currentRating={player.rating} />
+                        <RatingHistory playerName={player.name} playerId={player.name} currentRating={player.rating} />
                     </td>
                 </tr>
             {/if}
