@@ -6,6 +6,8 @@ import { Receiver } from "@upstash/qstash";
 import { getPlayersById } from "$ts/api/slippi";
 import { respond } from "$ts/api/respond";
 
+import { API_SECRET, QSTASH_CURRENT_SIGNING_KEY, QSTASH_NEXT_SIGNING_KEY } from "$env/static/private";
+
 import dbPromise from "$ts/database/database";
 
 const batch_size = 25;
